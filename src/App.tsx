@@ -8,7 +8,6 @@ import { drawerWidth } from "./theme/mixins";
 import { getDesignTokens } from "./theme/getDesignTokens";
 import { ThemeMode } from "./theme/theme";
 import { useDeviceSelectors } from "react-device-detect";
-import "./App.css";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";

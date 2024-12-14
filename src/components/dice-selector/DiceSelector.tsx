@@ -1,12 +1,6 @@
-import Icon from '@mdi/react';
-import React, { FunctionComponent, useState } from 'react';
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select
-  } from '@mui/material';
-
+import React, { useState } from "react";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import Icon from "@mdi/react";
 import {
   mdiDiceD20,
   mdiDiceD12,
@@ -15,52 +9,38 @@ import {
   mdiDiceD6,
   mdiDiceD4,
 } from "@mdi/js";
+import { Dice } from "./types";
 
 type DiceSelectorProps = {};
 
-export enum Dice {
-  D20 = "D20",
-  D12 = "D12",
-  D10 = "D10",
-  D8 = "D8",
-  D6 = "D6",
-  D4 = "D4",
-}
+const diceIcons = {
+  [Dice.D20]: mdiDiceD20,
+  [Dice.D12]: mdiDiceD12,
+  [Dice.D10]: mdiDiceD10,
+  [Dice.D8]: mdiDiceD8,
+  [Dice.D6]: mdiDiceD6,
+  [Dice.D4]: mdiDiceD4,
+};
 
-const DiceSelector: FunctionComponent<DiceSelectorProps> = () => {
+const DiceSelector: React.FC<DiceSelectorProps> = () => {
   const [selectedDice, setSelectedDice] = useState<Dice>(Dice.D20);
 
   return (
-    <>
-      <FormControl>
-        <InputLabel>Dé</InputLabel>
-        <Select
-          value={selectedDice}
-          onChange={(e) => setSelectedDice(e.target.value as Dice)}
-          label="Dé"
-          autoWidth
-        >
-          <MenuItem value={Dice.D20}>
-            <Icon path={mdiDiceD20} size={1} horizontal vertical rotate={180} />
+    <FormControl>
+      <InputLabel>Dé</InputLabel>
+      <Select
+        value={selectedDice}
+        onChange={(e) => setSelectedDice(e.target.value as Dice)}
+        label="Dé"
+        autoWidth
+      >
+        {Object.entries(diceIcons).map(([key, icon]) => (
+          <MenuItem key={key} value={key}>
+            <Icon path={icon} size={1} horizontal vertical rotate={180} />
           </MenuItem>
-          <MenuItem value={Dice.D12}>
-            <Icon path={mdiDiceD12} size={1} horizontal vertical rotate={180} />
-          </MenuItem>
-          <MenuItem value={Dice.D10}>
-            <Icon path={mdiDiceD10} size={1} horizontal vertical rotate={180} />
-          </MenuItem>
-          <MenuItem value={Dice.D8}>
-            <Icon path={mdiDiceD8} size={1} horizontal vertical rotate={180} />
-          </MenuItem>
-          <MenuItem value={Dice.D6}>
-            <Icon path={mdiDiceD6} size={1} horizontal vertical rotate={180} />
-          </MenuItem>
-          <MenuItem value={Dice.D4}>
-            <Icon path={mdiDiceD4} size={1} horizontal vertical rotate={180} />
-          </MenuItem>
-        </Select>
-      </FormControl>
-    </>
+        ))}
+      </Select>
+    </FormControl>
   );
 };
 
