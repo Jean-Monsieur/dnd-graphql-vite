@@ -1,4 +1,4 @@
-import { DistanceUnit } from "../types";
+import { DistanceUnit } from '../types'
 
 const conversionRates: Record<
   DistanceUnit,
@@ -13,7 +13,7 @@ const conversionRates: Record<
     [DistanceUnit.SQUARES]: 1 / 5,
   },
   [DistanceUnit.SQUARES]: { [DistanceUnit.METER]: 1.5, [DistanceUnit.FEET]: 5 },
-};
+}
 
 export const convertDistanceUnits = (
   value: number,
@@ -22,4 +22,4 @@ export const convertDistanceUnits = (
 ): number =>
   initialUnit === targetUnit
     ? value
-    : value * (conversionRates[initialUnit]?.[targetUnit] ?? 0);
+    : value * (conversionRates[initialUnit]?.[targetUnit] ?? 0)

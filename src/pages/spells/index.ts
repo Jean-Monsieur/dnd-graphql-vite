@@ -1,1 +1,1 @@
-export { default as SpellsPage } from "./SpellsRouter";
+export { default as SpellsPage } from './SpellsRouter'

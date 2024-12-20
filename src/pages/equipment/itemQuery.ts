@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client'
 
 export const GET_EQUIPMENT = gql`
   query Equipment($index: String) {
@@ -13,4 +13,4 @@ export const GET_EQUIPMENT = gql`
       }
     }
   }
-`;
+`

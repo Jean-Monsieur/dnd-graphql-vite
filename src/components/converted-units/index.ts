@@ -1,1 +1,1 @@
-export { default as DistanceUnitDisplay } from "./DistanceUnitDisplay";
+export { default as DistanceUnitDisplay } from './DistanceUnitDisplay'

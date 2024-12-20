@@ -1,1 +1,1 @@
-export { default as MonsterPage } from "./MonsterPage";
+export { default as MonsterPage } from './MonsterPage'

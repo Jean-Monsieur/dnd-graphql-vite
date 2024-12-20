@@ -1,6 +1,6 @@
 enum ThemeMode {
-  DARK = "dark",
-  LIGHT = "light",
+  DARK = 'dark',
+  LIGHT = 'light',
 }
 
-export { ThemeMode };
+export { ThemeMode }

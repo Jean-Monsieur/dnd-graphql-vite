@@ -1,7 +1,5 @@
-import React from "react";
-type MonsterProps = {};
-const Monster = ({}: MonsterProps) => {
-  return <>Hello</>;
-};
+const Monster = () => {
+  return <>Hello</>
+}
 
-export default Monster;
+export default Monster

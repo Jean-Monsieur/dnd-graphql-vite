@@ -1,17 +1,17 @@
-import { GqlCurrencies, Currency } from "../types";
+import { GqlCurrencies, Currency } from '../types'
 
 export const convertgQLCurrency = (currency: GqlCurrencies) => {
   switch (currency) {
     case GqlCurrencies.pp:
-      return Currency.PLATINUM;
+      return Currency.PLATINUM
     case GqlCurrencies.gp:
-      return Currency.GOLD;
+      return Currency.GOLD
     case GqlCurrencies.ep:
-      return Currency.ELECTRUM;
+      return Currency.ELECTRUM
     case GqlCurrencies.sp:
-      return Currency.SILVER;
+      return Currency.SILVER
     case GqlCurrencies.cp:
     default:
-      return Currency.COPPER;
+      return Currency.COPPER
   }
-};
+}

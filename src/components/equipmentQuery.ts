@@ -1,30 +1,30 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client'
 
 export const QUERY_EQUIPMENTS = gql`
-query getEquipment {
-  equipment {
-    index
-    name
-    cost {
-      quantity
-      unit
-    }
-
-    desc
-    equipment_category {
+  query getEquipment {
+    equipment {
       index
       name
-    }
-    equipment_category {
-      equipment{
-        desc
+      cost {
+        quantity
+        unit
+      }
+
+      desc
+      equipment_category {
         index
         name
       }
-      index
-      name
-    } 
-    weight
+      equipment_category {
+        equipment {
+          desc
+          index
+          name
+        }
+        index
+        name
+      }
+      weight
+    }
   }
-}
-`;
+`

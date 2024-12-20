@@ -1,10 +1,10 @@
-import ErrorPage from "../../components/error-page/ErrorPage";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import { DistanceUnitDisplay } from "../../components/converted-units";
-import { FunctionComponent } from "react";
-import { PageContainer } from "../../components/page";
-import { useHistory, useParams } from "react-router-dom";
+// import ErrorPage from '../../components/error-page/ErrorPage'
+// import ReactMarkdown from 'react-markdown'
+// import remarkGfm from 'remark-gfm'
+// import { DistanceUnitDisplay } from '../../components/converted-units'
+import { FunctionComponent } from 'react'
+import { PageContainer } from '../../components/page'
+import { useHistory } from 'react-router-dom'
 import {
   Card,
   CardContent,
@@ -12,36 +12,36 @@ import {
   CardActions,
   Button,
   Skeleton,
-} from "@mui/material";
+} from '@mui/material'
 
 const SpellPage: FunctionComponent = () => {
-  const { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  // const { id } = useParams<{ id: string }>()
+  const history = useHistory()
 
-  const x = {
-    index: id,
-  };
+  // const x = {
+  // index: id,
+  // }
   // const { data, error, loading } = useGetSpellQuery({
   //   variables: { filter: x },
   // });
 
-  const loading = !true;
-  const error = false;
-  const data: never[] = [];
+  const loading = !true
+  // const error = false
+  // const data: never[] = []
   if (loading) {
     return (
-      <div style={{ width: "100%", height: "100%" }}>
-        <Skeleton variant="text" width="100%" />
-        <Skeleton variant="rectangular" width={"100%"} sx={{ my: "1rem" }} />
-        <Skeleton variant="rectangular" width={"100%"} sx={{ my: "1rem" }} />
+      <div style={{ width: '100%', height: '100%' }}>
+        <Skeleton variant='text' width='100%' />
+        <Skeleton variant='rectangular' width={'100%'} sx={{ my: '1rem' }} />
+        <Skeleton variant='rectangular' width={'100%'} sx={{ my: '1rem' }} />
         <Skeleton
-          variant="rectangular"
-          height={"50%"}
-          width={"100%"}
-          sx={{ my: "1rem" }}
+          variant='rectangular'
+          height={'50%'}
+          width={'100%'}
+          sx={{ my: '1rem' }}
         />
       </div>
-    );
+    )
   }
 
   // if (error || !data || data.spell == null) {
@@ -50,15 +50,15 @@ const SpellPage: FunctionComponent = () => {
 
   return (
     <PageContainer>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: 'flex' }}>
         <Card>
           <CardContent>
-            <Typography variant="h5" component="div">
+            <Typography variant='h5' component='div'>
               bruh
             </Typography>
             <Typography
               sx={{ fontSize: 14 }}
-              color="text.secondary"
+              color='text.secondary'
               gutterBottom
             >
               bruh
@@ -67,7 +67,7 @@ const SpellPage: FunctionComponent = () => {
             </Typography>
             <Typography
               sx={{ fontSize: 14 }}
-              color="text.secondary"
+              color='text.secondary'
               gutterBottom
             >
               bruh
@@ -75,7 +75,7 @@ const SpellPage: FunctionComponent = () => {
             </Typography>
             <Typography
               sx={{ fontSize: 14 }}
-              color="text.secondary"
+              color='text.secondary'
               gutterBottom
             >
               Range:
@@ -83,7 +83,7 @@ const SpellPage: FunctionComponent = () => {
             </Typography>
             <Typography
               sx={{ fontSize: 14 }}
-              color="text.secondary"
+              color='text.secondary'
               gutterBottom
             >
               {/* Area of Effect : {data.spell?.area_of_effect?.type} */}
@@ -91,7 +91,7 @@ const SpellPage: FunctionComponent = () => {
                 initialValue={data.spell?.area_of_effect?.size.toString() ?? ""}
               /> */}
             </Typography>
-            <Typography sx={{ mb: 1.5 }} variant="body2">
+            <Typography sx={{ mb: 1.5 }} variant='body2'>
               Classes:
               {/* {data.spell?.classes?.map((c, index) => (
                 <>
@@ -100,7 +100,7 @@ const SpellPage: FunctionComponent = () => {
                 </>
               ))} */}
             </Typography>
-            <Typography sx={{ mb: 1.5 }} variant="body2">
+            <Typography sx={{ mb: 1.5 }} variant='body2'>
               {/* {data.spell?.desc !== null ? (
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {data.spell?.desc
@@ -113,19 +113,19 @@ const SpellPage: FunctionComponent = () => {
                 </ReactMarkdown>
               ) : null} */}
             </Typography>
-            <Typography sx={{ mb: 1.5 }} variant="body2">
+            <Typography sx={{ mb: 1.5 }} variant='body2'>
               {/* {data.spell?.higher_level} */}
             </Typography>
           </CardContent>
           <CardActions>
-            <Button onClick={() => history.goBack()} size="small">
+            <Button onClick={() => history.goBack()} size='small'>
               Go Back
             </Button>
           </CardActions>
         </Card>
       </div>
     </PageContainer>
-  );
-};
+  )
+}
 
-export default SpellPage;
+export default SpellPage

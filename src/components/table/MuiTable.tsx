@@ -4,19 +4,19 @@ import {
   GridEventListener,
   GridEvents,
   GridRowsProp,
-} from "@mui/x-data-grid";
-import React, { useEffect, useState } from "react";
+} from '@mui/x-data-grid'
+import React, { useEffect, useState } from 'react'
 
-import { useDeviceSelectors } from "react-device-detect";
-import QuickSearchToolbar from "./QuickSearchToolbar";
+import { useDeviceSelectors } from 'react-device-detect'
+import QuickSearchToolbar from './QuickSearchToolbar'
 type MuiTableProps = {
-  columns: GridColumns;
-  rows: GridRowsProp;
-  onRowDoubleClick: GridEventListener<GridEvents.rowDoubleClick>;
-  autoHeight?: boolean;
-  rowsPerPageOptions?: number[];
-  pagination?: true | undefined;
-};
+  columns: GridColumns
+  rows: GridRowsProp
+  onRowDoubleClick: GridEventListener<GridEvents.rowDoubleClick>
+  autoHeight?: boolean
+  rowsPerPageOptions?: number[]
+  pagination?: true | undefined
+}
 const MuiTable = ({
   columns,
   rows,
@@ -25,31 +25,31 @@ const MuiTable = ({
   rowsPerPageOptions = [5, 15, 25, 50, 100],
   pagination = undefined,
 }: MuiTableProps) => {
-  const [{ isMobile }] = useDeviceSelectors(window.navigator.userAgent);
+  const [{ isMobile }] = useDeviceSelectors(window.navigator.userAgent)
 
-  const [pageSize, setPageSize] = useState(25);
+  const [pageSize, setPageSize] = useState(25)
 
-  const [searchText, setSearchText] = React.useState("");
-  const [actualRows, setActualRows] = React.useState(rows);
+  const [searchText, setSearchText] = React.useState('')
+  const [actualRows, setActualRows] = React.useState(rows)
 
   useEffect(() => {
-    setActualRows(rows);
-  }, [rows]);
+    setActualRows(rows)
+  }, [rows])
 
   const escapeRegExp = (value: string): string => {
-    return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-  };
+    return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+  }
 
   const requestSearch = (searchValue: string) => {
-    setSearchText(searchValue);
-    const searchRegex = new RegExp(escapeRegExp(searchValue), "i");
-    const filteredRows = rows.filter((row: any) => {
-      return Object.keys(row).some((field: any) => {
-        return searchRegex.test(row[field].toString());
-      });
-    });
-    setActualRows(filteredRows);
-  };
+    setSearchText(searchValue)
+    const searchRegex = new RegExp(escapeRegExp(searchValue), 'i')
+    const filteredRows = rows.filter(row => {
+      return Object.keys(row).some(field => {
+        return searchRegex.test(row[field].toString())
+      })
+    })
+    setActualRows(filteredRows)
+  }
 
   return (
     <DataGrid
@@ -59,7 +59,7 @@ const MuiTable = ({
       columns={columns}
       pagination={pagination}
       pageSize={pageSize}
-      density={isMobile ? "comfortable" : "compact"}
+      density={isMobile ? 'comfortable' : 'compact'}
       components={{
         Toolbar: QuickSearchToolbar,
       }}
@@ -68,15 +68,15 @@ const MuiTable = ({
           value: searchText,
           onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
             requestSearch(event.target.value),
-          clearSearch: () => requestSearch(""),
+          clearSearch: () => requestSearch(''),
         },
       }}
-      onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+      onPageSizeChange={newPageSize => setPageSize(newPageSize)}
       onRowDoubleClick={onRowDoubleClick}
       disableSelectionOnClick
       isRowSelectable={() => false}
     />
-  );
-};
+  )
+}
 
-export default MuiTable;
+export default MuiTable

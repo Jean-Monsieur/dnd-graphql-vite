@@ -1,5 +1,5 @@
 export enum DistanceUnit {
-  FEET = "FEET",
-  METER = "METER",
-  SQUARES = "SQUARES",
+  FEET = 'FEET',
+  METER = 'METER',
+  SQUARES = 'SQUARES',
 }

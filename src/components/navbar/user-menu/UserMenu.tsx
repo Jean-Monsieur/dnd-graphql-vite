@@ -1,59 +1,59 @@
-import Logout from "@mui/icons-material/Logout";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import React from "react";
-import Settings from "@mui/icons-material/Settings";
-import { useAuth0 } from "@auth0/auth0-react";
+import Logout from '@mui/icons-material/Logout'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import React from 'react'
+import Settings from '@mui/icons-material/Settings'
+import { useAuth0 } from '@auth0/auth0-react'
 import {
   Avatar,
   Divider,
   IconButton,
   ListItemIcon,
   Tooltip,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+} from '@mui/material'
+import { Link } from 'react-router-dom'
 
 type UserMenuProps = {
-  onLogoutClicked: () => void;
-};
+  onLogoutClicked: () => void
+}
 const UserMenu = ({ onLogoutClicked }: UserMenuProps) => {
-  const { user } = useAuth0<{ name: string; picture: string }>();
+  const { user } = useAuth0<{ name: string; picture: string }>()
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   return (
     <div>
-      <Tooltip title="Account settings">
+      <Tooltip title='Account settings'>
         <IconButton
           onClick={handleMenu}
-          size="small"
+          size='small'
           sx={{ ml: 2 }}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          aria-controls={open ? "menu-appbar" : undefined}
+          aria-haspopup='true'
+          aria-expanded={open ? 'true' : undefined}
+          aria-controls={open ? 'menu-appbar' : undefined}
         >
           <Avatar sx={{ width: 32, height: 32 }} src={user?.picture} />
         </IconButton>
       </Tooltip>
       <Menu
-        id="menu-appbar"
+        id='menu-appbar'
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          "aria-labelledby": "basic-button",
+          'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose} component={Link} to="/profile">
+        <MenuItem onClick={handleClose} component={Link} to='/profile'>
           <ListItemIcon>
             <Avatar sx={{ width: 32, height: 32 }} src={user?.picture} />
           </ListItemIcon>
@@ -68,19 +68,19 @@ const UserMenu = ({ onLogoutClicked }: UserMenuProps) => {
         <Divider />
         <MenuItem>
           <ListItemIcon>
-            <Settings fontSize="small" />
+            <Settings fontSize='small' />
           </ListItemIcon>
           Settings
         </MenuItem>
         <MenuItem onClick={onLogoutClicked}>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <Logout fontSize='small' />
           </ListItemIcon>
           Logout
         </MenuItem>
       </Menu>
     </div>
-  );
-};
+  )
+}
 
-export default UserMenu;
+export default UserMenu

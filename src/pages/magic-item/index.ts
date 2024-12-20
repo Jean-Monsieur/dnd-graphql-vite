@@ -1,1 +1,1 @@
-export { default as MagicItemsPage } from "./MagicItemsPage";
+export { default as MagicItemsPage } from './MagicItemsPage'

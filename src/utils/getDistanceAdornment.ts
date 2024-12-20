@@ -1,12 +1,12 @@
-import { DistanceUnit } from '../types';
+import { DistanceUnit } from '../types'
 
 export const getDistanceAdornment = (initialUnit: DistanceUnit) => {
   switch (initialUnit) {
     case DistanceUnit.METER:
-      return "M.";
+      return 'M.'
     case DistanceUnit.FEET:
-      return "Ft.";
+      return 'Ft.'
     default:
-      return "Sqr";
+      return 'Sqr'
   }
-};
+}

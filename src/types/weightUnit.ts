@@ -1,4 +1,4 @@
 export enum WeightUnit {
-    KG = "KG",
-    LBS = "LBS"
+  KG = 'KG',
+  LBS = 'LBS',
 }

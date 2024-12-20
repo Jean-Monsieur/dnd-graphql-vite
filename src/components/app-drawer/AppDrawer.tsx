@@ -1,7 +1,7 @@
-import React from "react";
-import { getPathIcon } from "../../theme/getPathIcon";
-import { Link } from "react-router-dom";
-import { rootStruct } from "../../rootStruct";
+import React from 'react'
+import { getPathIcon } from '../../theme/getPathIcon'
+import { Link } from 'react-router-dom'
+import { rootStruct } from '../../rootStruct'
 import {
   Box,
   Drawer,
@@ -11,37 +11,32 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
-} from "@mui/material";
+} from '@mui/material'
 
 type AppDrawerProps = {
-  onToggle: (newValue: boolean) => void;
-  onItemClick: () => void;
-} & Omit<DrawerProps, "anchor">;
+  onItemClick: () => void
+} & Omit<DrawerProps, 'anchor'>
 
 const linkStyle = {
-  "&:hover": {
-    color: "inherit",
-    textDecoration: "none",
+  '&:hover': {
+    color: 'inherit',
+    textDecoration: 'none',
   },
-  "&:visited": {
-    color: "inherit",
-    textDecoration: "none",
+  '&:visited': {
+    color: 'inherit',
+    textDecoration: 'none',
   },
-  "&:active": {
-    color: "inherit",
-    textDecoration: "none",
+  '&:active': {
+    color: 'inherit',
+    textDecoration: 'none',
   },
-};
+}
 
-const AppDrawer: React.FC<AppDrawerProps> = ({
-  onToggle,
-  onItemClick,
-  ...props
-}) => {
+const AppDrawer: React.FC<AppDrawerProps> = ({ onItemClick, ...props }) => {
   return (
-    <Drawer anchor="left" {...props}>
+    <Drawer anchor='left' {...props}>
       <Toolbar />
-      <Box sx={{ height: "100%" }} role="presentation">
+      <Box sx={{ height: '100%' }} role='presentation'>
         <List>
           {rootStruct.map(({ id, name, iconName, path }) => (
             <ListItem
@@ -58,7 +53,7 @@ const AppDrawer: React.FC<AppDrawerProps> = ({
         </List>
       </Box>
     </Drawer>
-  );
-};
+  )
+}
 
-export default AppDrawer;
+export default AppDrawer

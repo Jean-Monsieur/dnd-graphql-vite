@@ -1,8 +1,8 @@
-import { Currency } from "../types";
+import { Currency } from '../types'
 
 type ConversionRates = {
-  [key in Currency]: Partial<Record<Currency, number>>;
-};
+  [key in Currency]: Partial<Record<Currency, number>>
+}
 
 const conversionRates: ConversionRates = {
   [Currency.PLATINUM]: {
@@ -35,7 +35,7 @@ const conversionRates: ConversionRates = {
     [Currency.ELECTRUM]: 1 / 50,
     [Currency.SILVER]: 1 / 10,
   },
-};
+}
 
 export const getConvertedCurrencyValue = (
   value: number,
@@ -43,9 +43,9 @@ export const getConvertedCurrencyValue = (
   targetCurrency: Currency,
 ): number => {
   if (initialCurrency === targetCurrency) {
-    return value;
+    return value
   }
 
-  const rate = conversionRates[initialCurrency]?.[targetCurrency];
-  return rate !== undefined ? value * rate : 0;
-};
+  const rate = conversionRates[initialCurrency]?.[targetCurrency]
+  return rate !== undefined ? value * rate : 0
+}

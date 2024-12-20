@@ -1,21 +1,21 @@
-import React from "react";
-import { useParams, useHistory } from "react-router-dom";
-import convertWeightUnit from "../../utils/convertWeightUnit";
-import { convertgQLCurrency } from "../../utils/convertGqlCurrency";
-import { CurrencyIcon } from "../../components/currency-icon";
-import { DistanceUnitDisplay } from "../../components/converted-units";
+import React from 'react'
+import { useParams, useHistory } from 'react-router-dom'
+import convertWeightUnit from '../../utils/convertWeightUnit'
+import { convertgQLCurrency } from '../../utils/convertGqlCurrency'
+import { CurrencyIcon } from '../../components/currency-icon'
+import { DistanceUnitDisplay } from '../../components/converted-units'
 import {
   Card,
   CardContent,
   Typography,
   CardActions,
   Button,
-} from "@mui/material";
-import Icon from "@mdi/react";
-import Looks3Icon from "@mui/icons-material/Looks3";
-import LooksOneIcon from "@mui/icons-material/LooksOne";
-import LooksTwoIcon from "@mui/icons-material/LooksTwo";
-import MoneyIcon from "@mui/icons-material/Money";
+} from '@mui/material'
+import Icon from '@mdi/react'
+import Looks3Icon from '@mui/icons-material/Looks3'
+import LooksOneIcon from '@mui/icons-material/LooksOne'
+import LooksTwoIcon from '@mui/icons-material/LooksTwo'
+import MoneyIcon from '@mui/icons-material/Money'
 import {
   mdiDiceD20,
   mdiDiceD10,
@@ -23,31 +23,31 @@ import {
   mdiDiceD6,
   mdiDiceD4,
   mdiDiceD8,
-} from "@mdi/js";
-import ErrorPage from "../../components/error-page/ErrorPage";
-import ItemPageSkeletons from "./ItemPageSkeletons";
-import { GqlCurrencies, WeightUnit } from "../../types";
-import { GET_EQUIPMENT } from "./itemQuery";
-import { useQuery } from "@apollo/client";
+} from '@mdi/js'
+import ErrorPage from '../../components/error-page/ErrorPage'
+import ItemPageSkeletons from './ItemPageSkeletons'
+import { GqlCurrencies, WeightUnit } from '../../types'
+import { GET_EQUIPMENT } from './itemQuery'
+import { useQuery } from '@apollo/client'
 
 const ItemPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  const { id } = useParams<{ id: string }>()
+  const history = useHistory()
 
   const { loading, error, data } = useQuery(GET_EQUIPMENT, {
     variables: { index: id },
-  });
+  })
 
   if (loading) {
-    return <ItemPageSkeletons />;
+    return <ItemPageSkeletons />
   }
 
   if (error || !data || data.equipment === null) {
-    return <ErrorPage errorCode={500} />;
+    return <ErrorPage errorCode={500} />
   }
 
   const getDamageDieIcon = (die: string) => {
-    const x = die.toUpperCase();
+    const x = die.toUpperCase()
     const dieIconsMap: { [key: string]: JSX.Element } = {
       D100: <MoneyIcon />,
       D12: <Icon path={mdiDiceD12} size={1} horizontal vertical rotate={180} />,
@@ -59,30 +59,30 @@ const ItemPage: React.FC = () => {
       D6: <Icon path={mdiDiceD6} size={1} horizontal vertical rotate={180} />,
       D4: <Icon path={mdiDiceD4} size={1} horizontal vertical rotate={180} />,
       D3: <Looks3Icon />,
-    };
+    }
 
     for (const key in dieIconsMap) {
       if (x.includes(key)) {
-        return dieIconsMap[key];
+        return dieIconsMap[key]
       }
     }
-    return null;
-  };
+    return null
+  }
 
   return (
     <div>
       <Card>
         <CardContent>
-          <Typography variant="h5" component="div">
+          <Typography variant='h5' component='div'>
             {data.equipment?.name}
           </Typography>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
             {data.equipment?.equipment_category?.name}
           </Typography>
           {data.equipment?.cost && (
             <Typography
               sx={{ fontSize: 14 }}
-              color="text.secondary"
+              color='text.secondary'
               gutterBottom
             >
               Cost: {data.equipment?.cost?.quantity}
@@ -96,7 +96,7 @@ const ItemPage: React.FC = () => {
           {data.equipment?.weight && (
             <Typography
               sx={{ fontSize: 14 }}
-              color="text.secondary"
+              color='text.secondary'
               gutterBottom
             >
               Weight: {data.equipment?.weight} lbs
@@ -111,44 +111,44 @@ const ItemPage: React.FC = () => {
           {data.equipment?.range && (
             <Typography
               sx={{ fontSize: 14 }}
-              color="text.secondary"
+              color='text.secondary'
               gutterBottom
             >
               <div>
                 Range: (Normal)
                 <DistanceUnitDisplay
                   initialValue={
-                    data.equipment?.range?.normal?.toString() ?? "NA"
+                    data.equipment?.range?.normal?.toString() ?? 'NA'
                   }
                 />
               </div>
               <div>
                 Long:
                 <DistanceUnitDisplay
-                  initialValue={data.equipment?.range?.long?.toString() ?? "NA"}
+                  initialValue={data.equipment?.range?.long?.toString() ?? 'NA'}
                 />
               </div>
             </Typography>
           )}
           {data.equipment?.armor_class?.base && (
             <Typography
-              sx={{ fontSize: 14, mb: ["1em", "4em"] }}
-              color="text.secondary"
+              sx={{ fontSize: 14, mb: ['1em', '4em'] }}
+              color='text.secondary'
               gutterBottom
             >
               Armor: {data.equipment?.armor_class?.base}
-              {", "}
+              {', '}
               {data.equipment?.armor_category}
             </Typography>
           )}
           {data.equipment?.damage && (
             <Typography
               sx={{ fontSize: 14 }}
-              color="text.secondary"
+              color='text.secondary'
               gutterBottom
             >
               Damage:
-              {getDamageDieIcon(data.equipment?.damage?.damage_dice ?? "12d3")}
+              {getDamageDieIcon(data.equipment?.damage?.damage_dice ?? '12d3')}
               {data.equipment?.damage?.damage_dice}
               {data.equipment?.damage?.damage_type?.name}
             </Typography>
@@ -156,7 +156,7 @@ const ItemPage: React.FC = () => {
           {data.equipment?.capacity && (
             <Typography
               sx={{ fontSize: 14 }}
-              color="text.secondary"
+              color='text.secondary'
               gutterBottom
             >
               Capacity {data.equipment?.capacity}
@@ -165,7 +165,7 @@ const ItemPage: React.FC = () => {
           {data.equipment?.category_range && (
             <Typography
               sx={{ fontSize: 14 }}
-              color="text.secondary"
+              color='text.secondary'
               gutterBottom
             >
               Category Range {data.equipment?.category_range}
@@ -174,7 +174,7 @@ const ItemPage: React.FC = () => {
           {data.equipment?.contents && (
             <Typography
               sx={{ fontSize: 14 }}
-              color="text.secondary"
+              color='text.secondary'
               gutterBottom
             >
               Contents
@@ -188,15 +188,15 @@ const ItemPage: React.FC = () => {
                         | React.ReactFragment
                         | React.ReactPortal
                         | null
-                        | undefined;
-                    };
+                        | undefined
+                    }
                     quantity:
                       | boolean
                       | React.ReactChild
                       | React.ReactFragment
                       | React.ReactPortal
                       | null
-                      | undefined;
+                      | undefined
                   },
                   index: React.Key | null | undefined,
                 ) => (
@@ -208,8 +208,8 @@ const ItemPage: React.FC = () => {
             </Typography>
           )}
           <Typography
-            variant="body2"
-            sx={{ mb: 1.5, textJustify: "left", marginTop: "4em" }}
+            variant='body2'
+            sx={{ mb: 1.5, textJustify: 'left', marginTop: '4em' }}
           >
             {data.equipment?.desc?.map(
               (
@@ -226,13 +226,13 @@ const ItemPage: React.FC = () => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={() => history.goBack()} size="small">
+          <Button onClick={() => history.goBack()} size='small'>
             Go Back
           </Button>
         </CardActions>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default ItemPage;
+export default ItemPage

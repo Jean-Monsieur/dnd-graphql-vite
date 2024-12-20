@@ -1,27 +1,21 @@
-import DynamicBreadcrumbs from './breadcrumbs/DynamicBreadcrumbs';
-import MenuIcon from '@mui/icons-material/Menu';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import ToggleThemeButton from './ToggleThemeButton';
-import { drawerWidth } from '../../theme/mixins';
-import { useAuth0 } from '@auth0/auth0-react';
-import { UserMenu } from './user-menu';
+import DynamicBreadcrumbs from './breadcrumbs/DynamicBreadcrumbs'
+import MenuIcon from '@mui/icons-material/Menu'
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import ToggleThemeButton from './ToggleThemeButton'
+import { drawerWidth } from '../../theme/mixins'
+import { useAuth0 } from '@auth0/auth0-react'
+import { UserMenu } from './user-menu'
 
-import {
-  Button,
-  IconButton,
-  PaletteMode,
-  styled,
-  Toolbar,
-} from "@mui/material";
+import { Button, IconButton, PaletteMode, styled, Toolbar } from '@mui/material'
 
 type AppbarProps = {
-  currentMode: PaletteMode;
-  onMenuToggled: () => void;
-  onThemeToggled: () => void;
-};
+  currentMode: PaletteMode
+  onMenuToggled: () => void
+  onThemeToggled: () => void
+}
 
 interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
+  open?: boolean
 }
 
 const Appbar = ({
@@ -29,37 +23,34 @@ const Appbar = ({
   onThemeToggled,
   onMenuToggled,
 }: AppbarProps) => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
 
   const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== "open",
+    shouldForwardProp: prop => prop !== 'open',
   })<AppBarProps>(({ theme, open }) => ({
     zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
+    transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     ...(open && {
       marginLeft: drawerWidth,
       width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(["width", "margin"], {
+      transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
     }),
-  }));
+  }))
 
   return (
-    <AppBar
-      position="fixed"
-      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-    >
+    <AppBar position='fixed' sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}>
       <Toolbar>
         <IconButton
-          color="inherit"
-          aria-label="open drawer"
+          color='inherit'
+          aria-label='open drawer'
           onClick={onMenuToggled}
-          edge="start"
+          edge='start'
         >
           <MenuIcon />
         </IconButton>
@@ -69,7 +60,7 @@ const Appbar = ({
             onLogoutClicked={() => logout({ returnTo: window.location.origin })}
           />
         ) : (
-          <Button onClick={loginWithRedirect} color="inherit">
+          <Button onClick={loginWithRedirect} color='inherit'>
             Login
           </Button>
         )}
@@ -79,7 +70,7 @@ const Appbar = ({
         />
       </Toolbar>
     </AppBar>
-  );
-};
+  )
+}
 
-export default Appbar;
+export default Appbar

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import Icon from "@mdi/react";
+import React, { useState } from 'react'
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import Icon from '@mdi/react'
 import {
   mdiDiceD20,
   mdiDiceD12,
@@ -8,10 +8,8 @@ import {
   mdiDiceD8,
   mdiDiceD6,
   mdiDiceD4,
-} from "@mdi/js";
-import { Dice } from "./types";
-
-type DiceSelectorProps = {};
+} from '@mdi/js'
+import { Dice } from './types'
 
 const diceIcons = {
   [Dice.D20]: mdiDiceD20,
@@ -20,18 +18,18 @@ const diceIcons = {
   [Dice.D8]: mdiDiceD8,
   [Dice.D6]: mdiDiceD6,
   [Dice.D4]: mdiDiceD4,
-};
+}
 
-const DiceSelector: React.FC<DiceSelectorProps> = () => {
-  const [selectedDice, setSelectedDice] = useState<Dice>(Dice.D20);
+const DiceSelector: React.FC = () => {
+  const [selectedDice, setSelectedDice] = useState<Dice>(Dice.D20)
 
   return (
     <FormControl>
       <InputLabel>Dé</InputLabel>
       <Select
         value={selectedDice}
-        onChange={(e) => setSelectedDice(e.target.value as Dice)}
-        label="Dé"
+        onChange={e => setSelectedDice(e.target.value as Dice)}
+        label='Dé'
         autoWidth
       >
         {Object.entries(diceIcons).map(([key, icon]) => (
@@ -41,7 +39,7 @@ const DiceSelector: React.FC<DiceSelectorProps> = () => {
         ))}
       </Select>
     </FormControl>
-  );
-};
+  )
+}
 
-export default DiceSelector;
+export default DiceSelector
