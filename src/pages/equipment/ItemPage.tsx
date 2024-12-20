@@ -1,24 +1,21 @@
-import convertWeightUnit from '../../utils/convertWeightUnit';
-import Icon from '@mdi/react';
-import Looks3Icon from '@mui/icons-material/Looks3';
-import LooksOneIcon from '@mui/icons-material/LooksOne';
-import LooksTwoIcon from '@mui/icons-material/LooksTwo';
-import MoneyIcon from '@mui/icons-material/Money';
-import { convertgQLCurrency } from '../../utils/convertGqlCurrency';
-import { CurrencyIcon } from '../../components/currency-icon';
-import { DistanceUnitDisplay } from '../../components/converted-units';
-import { FunctionComponent } from 'react';
-import { GqlCurrencies, WeightUnit } from '../../types';
-import { useGetEquipmentQuery } from '../../generated/graphql';
-import { useHistory, useParams } from 'react-router-dom';
+import React from "react";
+import { useParams, useHistory } from "react-router-dom";
+import convertWeightUnit from "../../utils/convertWeightUnit";
+import { convertgQLCurrency } from "../../utils/convertGqlCurrency";
+import { CurrencyIcon } from "../../components/currency-icon";
+import { DistanceUnitDisplay } from "../../components/converted-units";
 import {
   Card,
   CardContent,
   Typography,
   CardActions,
   Button,
-  Skeleton,
 } from "@mui/material";
+import Icon from "@mdi/react";
+import Looks3Icon from "@mui/icons-material/Looks3";
+import LooksOneIcon from "@mui/icons-material/LooksOne";
+import LooksTwoIcon from "@mui/icons-material/LooksTwo";
+import MoneyIcon from "@mui/icons-material/Money";
 import {
   mdiDiceD20,
   mdiDiceD10,
@@ -28,83 +25,49 @@ import {
   mdiDiceD8,
 } from "@mdi/js";
 import ErrorPage from "../../components/error-page/ErrorPage";
+import ItemPageSkeletons from "./ItemPageSkeletons";
+import { GqlCurrencies, WeightUnit } from "../../types";
+import { GET_EQUIPMENT } from "./itemQuery";
+import { useQuery } from "@apollo/client";
 
-
-const ItemPage: FunctionComponent = () => {
+const ItemPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
 
-  const { data, error, loading } = useGetEquipmentQuery({
-    variables: {
-      filter: {
-        index: id,
-      },
-    },
+  const { loading, error, data } = useQuery(GET_EQUIPMENT, {
+    variables: { index: id },
   });
 
   if (loading) {
-    return (
-      <div style={{ width: "100%", height: "100%" }}>
-        <Skeleton variant="text" width="100%" />
-        <Skeleton variant="rectangular" width={"100%"} sx={{ my: "1rem" }} />
-        <Skeleton variant="rectangular" width={"100%"} sx={{ my: "1rem" }} />
-        <Skeleton
-          variant="rectangular"
-          height={"50%"}
-          width={"100%"}
-          sx={{ my: "1rem" }}
-        />
-      </div>
-    );
+    return <ItemPageSkeletons />;
   }
 
-  if (error || !data) {
+  if (error || !data || data.equipment === null) {
     return <ErrorPage errorCode={500} />;
   }
 
   const getDamageDieIcon = (die: string) => {
     const x = die.toUpperCase();
+    const dieIconsMap: { [key: string]: JSX.Element } = {
+      D100: <MoneyIcon />,
+      D12: <Icon path={mdiDiceD12} size={1} horizontal vertical rotate={180} />,
+      D10: <Icon path={mdiDiceD10} size={1} horizontal vertical rotate={180} />,
+      D1: <LooksOneIcon />,
+      D20: <Icon path={mdiDiceD20} size={1} horizontal vertical rotate={180} />,
+      D2: <LooksTwoIcon />,
+      D8: <Icon path={mdiDiceD8} size={1} horizontal vertical rotate={180} />,
+      D6: <Icon path={mdiDiceD6} size={1} horizontal vertical rotate={180} />,
+      D4: <Icon path={mdiDiceD4} size={1} horizontal vertical rotate={180} />,
+      D3: <Looks3Icon />,
+    };
 
-    if (x.includes("D100")) {
-      return <MoneyIcon />;
-    } else if (x.includes("D12")) {
-      return (
-        <Icon path={mdiDiceD12} size={1} horizontal vertical rotate={180} />
-      );
-    } else if (x.includes("D10")) {
-      return (
-        <Icon path={mdiDiceD10} size={1} horizontal vertical rotate={180} />
-      );
-    } else if (x.includes("D1")) {
-      return <LooksOneIcon />;
-    } else if (x.includes("D20")) {
-      return (
-        <Icon path={mdiDiceD20} size={1} horizontal vertical rotate={180} />
-      );
-    } else if (x.includes("D2")) {
-      return <LooksTwoIcon />;
-    } else if (x.includes("D8")) {
-      return (
-        <Icon path={mdiDiceD8} size={1} horizontal vertical rotate={180} />
-      );
-    } else if (x.includes("D6")) {
-      return (
-        <Icon path={mdiDiceD6} size={1} horizontal vertical rotate={180} />
-      );
-    } else if (x.includes("D4")) {
-      return (
-        <Icon path={mdiDiceD4} size={1} horizontal vertical rotate={180} />
-      );
-    } else if (x.includes("D3")) {
-      return <Looks3Icon />;
+    for (const key in dieIconsMap) {
+      if (x.includes(key)) {
+        return dieIconsMap[key];
+      }
     }
+    return null;
   };
-
-
-  if (data.equipment === null) {
-    return <ErrorPage errorCode={500} />;
-  }
-
 
   return (
     <div>
@@ -113,7 +76,6 @@ const ItemPage: FunctionComponent = () => {
           <Typography variant="h5" component="div">
             {data.equipment?.name}
           </Typography>
-
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             {data.equipment?.equipment_category?.name}
           </Typography>
@@ -126,7 +88,7 @@ const ItemPage: FunctionComponent = () => {
               Cost: {data.equipment?.cost?.quantity}
               <CurrencyIcon
                 currency={convertgQLCurrency(
-                  data.equipment?.cost?.unit as GqlCurrencies
+                  data.equipment?.cost?.unit as GqlCurrencies,
                 )}
               />
             </Typography>
@@ -141,7 +103,7 @@ const ItemPage: FunctionComponent = () => {
               {convertWeightUnit(
                 data.equipment?.weight,
                 WeightUnit.LBS,
-                WeightUnit.KG
+                WeightUnit.KG,
               )}
               Kg.
             </Typography>
@@ -179,7 +141,6 @@ const ItemPage: FunctionComponent = () => {
               {data.equipment?.armor_category}
             </Typography>
           )}
-
           {data.equipment?.damage && (
             <Typography
               sx={{ fontSize: 14 }}
@@ -207,7 +168,7 @@ const ItemPage: FunctionComponent = () => {
               color="text.secondary"
               gutterBottom
             >
-              Catgory Range {data.equipment?.category_range}
+              Category Range {data.equipment?.category_range}
             </Typography>
           )}
           {data.equipment?.contents && (
@@ -217,20 +178,51 @@ const ItemPage: FunctionComponent = () => {
               gutterBottom
             >
               Contents
-              {data.equipment?.contents.map((c, index) => (
-                <div key={index}>
-                  {c?.item?.name} {c?.quantity}
-                </div>
-              ))}
+              {data.equipment?.contents.map(
+                (
+                  c: {
+                    item: {
+                      name:
+                        | boolean
+                        | React.ReactChild
+                        | React.ReactFragment
+                        | React.ReactPortal
+                        | null
+                        | undefined;
+                    };
+                    quantity:
+                      | boolean
+                      | React.ReactChild
+                      | React.ReactFragment
+                      | React.ReactPortal
+                      | null
+                      | undefined;
+                  },
+                  index: React.Key | null | undefined,
+                ) => (
+                  <div key={index}>
+                    {c?.item?.name} {c?.quantity}
+                  </div>
+                ),
+              )}
             </Typography>
           )}
           <Typography
             variant="body2"
             sx={{ mb: 1.5, textJustify: "left", marginTop: "4em" }}
           >
-            {data.equipment?.desc?.map((d, index) => (
-              <div key={index}>{d}</div>
-            ))}
+            {data.equipment?.desc?.map(
+              (
+                d:
+                  | boolean
+                  | React.ReactChild
+                  | React.ReactFragment
+                  | React.ReactPortal
+                  | null
+                  | undefined,
+                index: React.Key | null | undefined,
+              ) => <div key={index}>{d}</div>,
+            )}
           </Typography>
         </CardContent>
         <CardActions>

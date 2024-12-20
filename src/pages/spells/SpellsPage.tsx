@@ -1,21 +1,14 @@
-import ErrorPage from '../../components/error-page/ErrorPage';
-import SpellPage from './SpellPage';
-import { FunctionComponent } from 'react';
-import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import { MuiTable } from '../../components/table';
-import { PageContainer } from '../../components/page';
-import { Skeleton } from '@mui/material';
-import { useHistory, useLocation } from 'react-router-dom';
-
+import ErrorPage from "../../components/error-page/ErrorPage";
+import { FunctionComponent } from "react";
+import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { MuiTable } from "../../components/table";
+import { PageContainer } from "../../components/page";
+import { Skeleton } from "@mui/material";
+import { useHistory, useLocation } from "react-router-dom";
+import { useGetSpellsQuery } from "../../generated/graphql";
 
 const SpellsPage: FunctionComponent = () => {
-
-  // const { data, error, loading } = useGetSpellsQuery();
-  const loading = false;
-  const data: readonly any[] = [];
-  const error = false;
-
-  const location = useLocation();
+  const { data, error, loading } = useGetSpellsQuery();
 
   const history = useHistory();
 
@@ -68,24 +61,23 @@ const SpellsPage: FunctionComponent = () => {
     },
   ];
 
-  if (location.search === "") {
-    return (
-      <PageContainer>
-        <div style={{ display: "flex" }}>
-          <div style={{ flexGrow: 1 }}>
-            <MuiTable
-              autoHeight={true}
-              columns={columns}
-              rows={data}
-              // rows={data.spells.map((m: { index: any; }) => ({ ...m, id: m.index }))}
-              onRowDoubleClick={({ id }) => history.push(`/spells/${id}`)}
-            />
-          </div>
+  return (
+    <PageContainer>
+      <div style={{ display: "flex" }}>
+        <div style={{ flexGrow: 1 }}>
+          <MuiTable
+            autoHeight={true}
+            columns={columns}
+            rows={data?.spells?.map((m) => ({
+              ...m,
+              id: m.index,
+            }))}
+            onRowDoubleClick={({ id }) => history.push(`/spells/${id}`)}
+          />
         </div>
-      </PageContainer>
-    );
-  }
-  return <SpellPage />;
+      </div>
+    </PageContainer>
+  );
 };
 
 export default SpellsPage;

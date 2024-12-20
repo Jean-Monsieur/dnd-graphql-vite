@@ -67,18 +67,20 @@ const EquipmentPage: FunctionComponent = () => {
     {
       field: "cost",
       flex: 1,
-      // headerName: "Cost",
-      // renderCell: (params: GridRenderCellParams) => (
-      //   <>
-      //     <span style={{ marginRight: "0.25rem" }}>
-      //       {params?.value?.quantity}
-      //     </span>
-      //     <CurrencyIcon
-      //       currency={convertgQLCurrency(params?.value?.unit as GqlCurrencies)}
-      //     />
-      //     <Typography sx={unitStyle}>{params?.value?.unit}</Typography>
-      //   </>
-      // ),
+      headerName: "Cost",
+      renderCell: (params: GridRenderCellParams) => (
+        <>
+          <span style={{ marginRight: "0.25rem" }}>
+            {params?.value?.quantity}
+          </span>
+          <CurrencyIcon
+            currency={convertgQLCurrency(
+              params?.value?.unit.toString().toLowerCase() as GqlCurrencies,
+            )}
+          />
+          <Typography sx={unitStyle}>{params?.value?.unit}</Typography>
+        </>
+      ),
     },
   ];
 

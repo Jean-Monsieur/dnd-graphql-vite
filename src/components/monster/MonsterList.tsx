@@ -3,7 +3,11 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import CastleIcon from "@mui/icons-material/Castle";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShieldIcon from "@mui/icons-material/Shield";
-import { GetMonstersListQuery, MonsterSpeed } from "../../generated/graphql";
+import {
+  GetMonstersListQuery,
+  MonsterArmorClass,
+  MonsterSpeed,
+} from "../../generated/graphql";
 import { MuiTable } from "../table";
 import "./styles.css";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
@@ -92,6 +96,14 @@ const MonsterList: React.FC<Props> = ({ data }) => {
           {"AC"}
         </>
       ),
+      renderCell(params: GridRenderCellParams<MonsterArmorClass>) {
+        return (
+          <>
+            <ShieldIcon sx={{ mr: "1rem" }} />
+            {params?.value[0].value}
+          </>
+        );
+      },
     },
 
     {
