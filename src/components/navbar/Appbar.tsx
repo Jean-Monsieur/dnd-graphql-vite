@@ -18,11 +18,7 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean
 }
 
-const Appbar = ({
-  currentMode,
-  onThemeToggled,
-  onMenuToggled,
-}: AppbarProps) => {
+const Appbar = ({ onThemeToggled, onMenuToggled }: AppbarProps) => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
 
   const AppBar = styled(MuiAppBar, {
@@ -64,10 +60,7 @@ const Appbar = ({
             Login
           </Button>
         )}
-        <ToggleThemeButton
-          currentMode={currentMode}
-          onThemeToggled={onThemeToggled}
-        />
+        <ToggleThemeButton onThemeToggled={onThemeToggled} />
       </Toolbar>
     </AppBar>
   )

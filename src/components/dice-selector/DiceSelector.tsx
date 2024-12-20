@@ -9,7 +9,7 @@ import {
   mdiDiceD6,
   mdiDiceD4,
 } from '@mdi/js'
-import { Dice } from './types'
+import { Dice } from './dice'
 
 const diceIcons = {
   [Dice.D20]: mdiDiceD20,

@@ -17,7 +17,6 @@ const ErrorPage = ({ errorCode = 404 }: ErrorPageProps) => {
         <div className='bee-sketch red'></div>
         <div className='bee-sketch blue'></div>
       </div>
-
       <h1>
         {ErrorMessages[errorCode].code}:
         <small>{ErrorMessages[errorCode].message}</small>
